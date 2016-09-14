@@ -1,5 +1,5 @@
 function [ points ] = Shape2Dselection( )
-%UNTITLED Summary of this function goes here
+%SHAPE2DSELECTION Summary of this function goes here
 %   Detailed explanation goes here
 shapes = {'Rectangle', 'T', 'I', 'L', 'Pi', 'Cross', 'Z', 'Inscribed polygon','Custom Polygon'};
 [shape] = listdlg('PromptString','Select a shape','SelectionMode','single','ListString',shapes);
