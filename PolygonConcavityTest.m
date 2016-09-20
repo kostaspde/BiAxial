@@ -15,17 +15,19 @@ function [ convex, counterclockwise, concavityResult ] = PolygonConcavityTest( p
 % Most crossproducts are positive = concave and counterclockwise
 % Most crossproducts are negative = concave and clockwise
 
- 
+points = PointsAppendFirstUndo(points); %Ensure that the first point of the polygon is not repeated at the end of the matrix
 numberOfPoints = length(points);    %Number of points
-crossProductsZ = zeros(length(points),1); %Pre-allocation
-crossProducts=zeros(length(points),3); %Pre-allocation
+%crossProductsZ = zeros(numberOfPoints,1); %Pre-allocation (this variable
+%is needed only for the alternative calculation
+crossProducts=zeros(numberOfPoints,3); %Pre-allocation
+
 for j = 1 : numberOfPoints
 
-    if j==numberOfPoints %Point1 is the last point, so Point2 and Point3 continue from the start of the matrix
+    if j==numberOfPoints %if Point1 is the last point, Point2 and Point3 continue from the start of the matrix
         p1 = j;
         p2 = 1;
         p3 = 2;
-    elseif j==numberOfPoints-1  %Point1 is the pre-last point, so Point2 is the last point and Point3 continues from the start of the matrix
+    elseif j==numberOfPoints-1  %if Point1 is the pre-last point, Point2 is the last point and Point3 continues from the start of the matrix
         p1 = j;
         p2 = j+1;
         p3 = 1;
@@ -34,7 +36,6 @@ for j = 1 : numberOfPoints
         p2 = j+1;
         p3 = j+2;
     end
-
     
     v1 = [points(p2,:) , 0] - [points(p1,:) , 0]; %vector1 P1P2 (each vector has 3 components X,Y,Z where Z is set to zero)
     v2 = [points(p3,:) , 0] - [points(p2,:) , 0]; %vector2 P2P3

@@ -5,7 +5,8 @@ function [ points ] = PointsAppendFirst( points )
 %   points of a polygon. This function adds another row with the
 %   coordinates of the first point of polygon (first row of the matrix).
 
-if points(1,:)~=points(end,:) %Check if the first point is already copied at the end of the matrix, if not then append it.
+s = sum(points(1,:)==points(end,:)); %Check if the first point is already copied at the end of the matrix
+if  s~=2    %if the first and last point are not the same, then append the first point to the matrix.
    points = [points;points(1,:)]; %Add the first point to the end of the matrix
 end
 end
